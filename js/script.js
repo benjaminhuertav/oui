@@ -40,8 +40,9 @@ const PROJECTS = [
     role:        'Art Director & Content Creator',
     year:        '2024',
     type:        'Art Direction',
-    description: 'Full art direction and content creation for Mouty. From initial concept and casting to on-set direction and post-production — building a cohesive visual universe for the emerging French menswear label.',
+    description: 'Built the art direction around a trio of friends enjoying a weekend escape in a refined countryside house near Paris. Oversaw casting, location scouting, and the selection of photographer Benjamin Breading to capture the relaxed yet sophisticated mood of the clothes. The campaign reached 12K views on Instagram and drove +12–16% in sales.',
     coverImage:  'images/mouty/mouty-1.jpg',
+    video:       'images/mouty/mouty-campaign.mp4',
     gallery:     [
       'images/mouty/mouty-1.jpg',
       'images/mouty/mouty-2.jpg',
@@ -172,6 +173,19 @@ function openModal(idx) {
   const p = PROJECTS[idx];
   lastFocused = document.activeElement;
 
+  const videoBlock = p.video ? `
+    <div class="modal-video-wrap">
+      <video
+        class="modal-video"
+        src="${p.video}"
+        controls
+        preload="metadata"
+        playsinline
+        aria-label="${p.title} — campaign film"
+      ></video>
+    </div>
+  ` : '';
+
   modalContent.innerHTML = `
     <div class="modal-header">
       <h2 class="modal-project-title" id="modalTitle">${p.title}</h2>
@@ -182,6 +196,7 @@ function openModal(idx) {
       </div>
     </div>
     <div class="modal-rule"></div>
+    ${videoBlock}
     <div class="modal-gallery">
       ${p.gallery.map((src, i) => galleryItem(src, p.title, i)).join('')}
     </div>
@@ -194,6 +209,10 @@ function openModal(idx) {
 }
 
 function closeModal() {
+  /* pause any playing video */
+  const vid = modalContent.querySelector('video');
+  if (vid) { vid.pause(); vid.currentTime = 0; }
+
   modal.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = '';
   if (lastFocused) lastFocused.focus();

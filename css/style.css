@@ -641,6 +641,20 @@ footer span {
   opacity: 0.12;
 }
 
+/* campaign video */
+.modal-video-wrap {
+  margin-bottom: var(--gap);
+  background: var(--ink);
+  line-height: 0;
+}
+
+.modal-video {
+  width: 100%;
+  display: block;
+  max-height: 56vw;
+  background: var(--ink);
+}
+
 /* gallery */
 .modal-gallery {
   display: grid;
